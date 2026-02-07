@@ -1,40 +1,41 @@
+import 'package:equatable/equatable.dart';
+
 /// Notification Model
-class NotificationModel {
+
+class NotificationModel extends Equatable {
   final String id;
-  final String? userId;
+  final String userId;
   final String title;
   final String message;
-  final String notificationType; // email, push, in_app, whatsapp
-  final bool isRead;
-  final DateTime sentAt;
-  final DateTime? readAt;
+  final String category; // message, news, event, system
   final Map<String, dynamic>? metadata;
+  final String? actionUrl;
+  final bool isRead;
+  final DateTime createdAt;
 
-  NotificationModel({
+  const NotificationModel({
     required this.id,
-    this.userId,
+    required this.userId,
     required this.title,
     required this.message,
-    required this.notificationType,
-    this.isRead = false,
-    required this.sentAt,
-    this.readAt,
+    this.category = 'general',
     this.metadata,
+    this.actionUrl,
+    this.isRead = false,
+    required this.createdAt,
   });
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     return NotificationModel(
       id: json['id'] as String,
-      userId: json['user_id'] as String?,
+      userId: json['user_id'] as String,
       title: json['title'] as String,
       message: json['message'] as String,
-      notificationType: json['notification_type'] as String,
-      isRead: json['is_read'] as bool? ?? false,
-      sentAt: DateTime.parse(json['sent_at'] as String),
-      readAt: json['read_at'] != null
-          ? DateTime.parse(json['read_at'] as String)
-          : null,
+      category: json['category'] as String? ?? 'general',
       metadata: json['metadata'] as Map<String, dynamic>?,
+      actionUrl: json['action_url'] as String?,
+      isRead: json['is_read'] as bool? ?? false,
+      createdAt: DateTime.parse(json['created_at'] as String),
     );
   }
 
@@ -44,28 +45,48 @@ class NotificationModel {
       'user_id': userId,
       'title': title,
       'message': message,
-      'notification_type': notificationType,
-      'is_read': isRead,
-      'sent_at': sentAt.toIso8601String(),
-      'read_at': readAt?.toIso8601String(),
+      'category': category,
       'metadata': metadata,
+      'action_url': actionUrl,
+      'is_read': isRead,
+      'created_at': createdAt.toIso8601String(),
     };
   }
 
   NotificationModel copyWith({
+    String? id,
+    String? userId,
+    String? title,
+    String? message,
+    String? category,
+    Map<String, dynamic>? metadata,
+    String? actionUrl,
     bool? isRead,
-    DateTime? readAt,
+    DateTime? createdAt,
   }) {
     return NotificationModel(
-      id: id,
-      userId: userId,
-      title: title,
-      message: message,
-      notificationType: notificationType,
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      message: message ?? this.message,
+      category: category ?? this.category,
+      metadata: metadata ?? this.metadata,
+      actionUrl: actionUrl ?? this.actionUrl,
       isRead: isRead ?? this.isRead,
-      sentAt: sentAt,
-      readAt: readAt ?? this.readAt,
-      metadata: metadata,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        userId,
+        title,
+        message,
+        category,
+        metadata,
+        actionUrl,
+        isRead,
+        createdAt,
+      ];
 }

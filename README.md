@@ -1,397 +1,356 @@
-# 🚀 Employee Portal - نظام بوابة الموظفين الداخلية
+# 🎨 Premium Employee Portal
 
 <div align="center">
 
-![Flutter](https://img.shields.io/badge/Flutter-3.0+-02569B?logo=flutter)
-![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
+**نظام إدارة موظفين احترافي مع UI فاخر وميزات Real-Time**
 
-**نظام متكامل لإدارة الموظفين مع دعم كامل للغة العربية (RTL)**
-
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Documentation](#-documentation)
+[![Flutter](https://img.shields.io/badge/Flutter-3.0+-02569B?logo=flutter)](https://flutter.dev)
+[![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase)](https://supabase.com)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 </div>
 
 ---
 
-## 📋 Overview
+## ✨ الميزات الرئيسية
 
-Employee Portal هو نظام شامل لإدارة الموظفين الداخليين مبني باستخدام **Flutter** و **Supabase**. يوفر النظام 5 لوحات تحكم مخصصة حسب الدور مع أكثر من 27 شاشة احترافية.
+### 🎨 UI/UX Premium
+- **Glassmorphic Design** - تأثيرات Blur احترافية
+- **Dark/Light Mode** - تبديل سلس بين الوضعين
+- **Premium Animations** - حركات ناعمة ومبهرة
+- **Skeleton Loaders** - حالات تحميل احترافية
+- **Gradient Backgrounds** - خلفيات تدرجية جميلة
 
-### ✨ Key Highlights
+### 🔄 Real-Time Features
+- إشعارات فورية
+- رسائل Real-time
+- تحديثات الأخبار المباشرة
+- الفعاليات القادمة
 
-- ✅ **5 Role-Based Dashboards** (Employee, HR, IT, Management, Admin)
-- ✅ **Full Arabic RTL Support** + English LTR
-- ✅ **Comprehensive RLS Security** (Row Level Security)
-- ✅ **Offline Caching** with Hive
-- ✅ **Professional UI/UX** with Material Design 3
-- ✅ **85+ Files** (~9000 lines of production-ready code)
-- ✅ **12 Database Tables** with proper relationships
-- ✅ **Complete CRUD Operations** for all entities
-
----
-
-## 🎯 Features
-
-### 🏢 For Employees
-- 📰 **Company News Feed** - Stay updated with latest announcements
-- 😊 **Daily Mood Tracker** - Submit mood once per day
-- 📅 **Events Calendar** - View birthdays, meetings, celebrations
-- 🔗 **Quick Links** - Access company resources easily
-- 💬 **Management Messages** - Receive official communications
-- 🤖 **AI Chatbot** - Get instant help (placeholder for AI integration)
-
-### 👥 For HR Department
-- 📊 **Analytics Dashboard** - Employee count, mood statistics
-- 📋 **HR Policies Management** - Add/Edit/Delete policies with PDF upload
-- 🎓 **Training Courses** - Manage courses with date pickers, participants
-- 📈 **Mood Reports** - Pie charts showing team morale
-- 💼 **Recruitment Portal** - Job postings (placeholder)
-
-### 💻 For IT Department
-- 🔒 **IT Policies Management** - Security, Usage, Compliance policies
-- 👤 **User Overview** - Total users, active devices
-- 📞 **Support Contacts** - IT help desk information
-- 🔔 **System Announcements** - Maintenance alerts, security updates
-
-### 📊 For Management
-- 📈 **Engagement Analytics** - Company-wide engagement rate
-- 📉 **Mood Distribution** - Interactive pie charts
-- 📢 **Publish Messages** - Send official communications with priority
-- 👀 **Message History** - View all published messages
-
-### ⚙️ For Administrators
-- 👥 **User Management** - Add/Edit/Delete users, change roles, activate/deactivate
-- 📝 **Content Management** - Manage news and messages (2 tabs)
-- 🔗 **Navigation Links** - Reorderable quick links with drag & drop
-- 🎉 **Events Management** - Add events with date picker and types
-- 🔔 **Notifications Center** - Send Email/Push/WhatsApp notifications
-- 🛠️ **System Settings** - Configure system preferences (placeholder)
+### 📱 الشاشات (11 شاشة)
+1. **Settings** - إعدادات شاملة
+2. **Create News** - إنشاء أخبار مع محرر غني
+3. **User Detail** - تفاصيل المستخدم الكاملة
+4. **Messages Inbox** - صندوق الرسائل
+5. **Compose Message** - إنشاء رسالة
+6. **Message Detail** - تفاصيل الرسالة
+7. **Notifications Center** - مركز الإشعارات
+8. **Event Detail** - تفاصيل الفعالية
+9. **Enhanced Employee Dashboard** - لوحة تحكم الموظف
+10. **Login** - تسجيل الدخول
+11. **Register** - التسجيل
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ التقنيات المستخدمة
 
-| Technology | Purpose |
-|------------|---------|
-| **Flutter 3.0+** | Cross-platform mobile framework |
-| **Supabase** | Backend (PostgreSQL + Auth + Storage) |
-| **flutter_bloc** | State management (Cubit pattern) |
-| **Hive** | Offline caching and local storage |
-| **fl_chart** | Beautiful charts and analytics |
-| **intl** | Internationalization (AR/EN) |
-
----
-
-## 📦 Installation
-
-### Prerequisites
-
-- Flutter SDK 3.0 or higher
-- Dart SDK
-- Supabase account
-- Android Studio / VS Code
-
-### Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/yourcompany/employee-portal.git
-cd employee-portal
+### Core
+```yaml
+flutter: SDK 3.0+
+dart: 3.0+
 ```
 
-### Step 2: Install Dependencies
+### State Management
+```yaml
+flutter_bloc: ^8.1.6
+equatable: ^2.0.5
+```
 
+### Backend
+```yaml
+supabase_flutter: ^2.7.0
+```
+
+### UI/UX
+```yaml
+skeletonizer: ^1.4.2        # Skeleton loaders
+shimmer: ^3.0.0              # Shimmer effects
+cached_network_image: ^3.4.1 # Image caching
+```
+
+### Storage
+```yaml
+shared_preferences: ^2.3.3   # Local storage
+hive: ^2.2.3                 # NoSQL database
+```
+
+---
+
+## 🚀 البدء السريع
+
+### المتطلبات
+- Flutter SDK 3.0+
+- Dart 3.0+
+- حساب Supabase
+
+### التثبيت
+
+1. **Clone المشروع**
+```bash
+git clone <repository-url>
+cd role
+```
+
+2. **تثبيت Dependencies**
 ```bash
 flutter pub get
 ```
 
-### Step 3: Setup Supabase Backend
+3. **إعداد Supabase**
+```bash
+# أنشئ ملف .env
+cp .env.example .env
 
-#### 3.1 Create Supabase Project
-1. Go to [supabase.com](https://supabase.com)
-2. Create a new project
-3. Note your **Project URL** and **Anon Key**
-
-#### 3.2 Apply Database Schema
-1. Open Supabase Dashboard → **SQL Editor**
-2. Copy entire content from `supabase/complete_schema.sql`
-3. Paste and click **Run**
-
-✅ This creates 12 tables with RLS policies
-
-#### 3.3 Create Test Users
-1. Go to **Authentication** → **Users** → **Add User**
-2. Create 5 users:
-   - `admin@company.com` (Auto Confirm ✅)
-   - `hr@company.com` (Auto Confirm ✅)
-   - `it@company.com` (Auto Confirm ✅)
-   - `manager@company.com` (Auto Confirm ✅)
-   - `employee@company.com` (Auto Confirm ✅)
-
-3. **Copy UUIDs** of each user
-
-#### 3.4 Load Sample Data
-1. Open `supabase/seed_data.sql`
-2. **Replace UUIDs** in lines 17-46 with actual UUIDs from step 3.3
-3. SQL Editor → **New Query** → Paste → **Run**
-
-✅ This populates news, events, policies, courses, messages, links
-
-#### 3.5 Setup Storage Buckets
-1. Go to **Storage** → **Create Bucket**:
-   - Name: `documents` | Public: **No**
-   - Name: `images` | Public: **Yes**
-2. SQL Editor → Copy `supabase/storage_setup.sql` → **Run**
-
-✅ Storage policies are configured
-
-#### 3.6 Configure Flutter App
-Create `.env` file in project root:
-
-```env
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_ANON_KEY=your-anon-key
+# أضف بيانات Supabase
+SUPABASE_URL=your_project_url
+SUPABASE_ANON_KEY=your_anon_key
 ```
 
-Update `lib/core/config/supabase_config.dart`:
-
-```dart
-static const String supabaseUrl = 'YOUR_SUPABASE_URL';
-static const String supabaseAnonKey = 'YOUR_ANON_KEY';
+4. **تشغيل SQL Scripts**
+```sql
+-- في Supabase SQL Editor
+-- نفذ:
+1. supabase/database_setup.sql
+2. supabase/ADDITIONAL_TABLES.sql
+3. supabase/storage_setup.sql
 ```
 
-### Step 4: Run the App
-
+5. **تشغيل التطبيق**
 ```bash
 flutter run
 ```
 
 ---
 
-## 🎮 Usage
-
-### Login Credentials
-
-| Email | Role | Dashboard Access |
-|-------|------|------------------|
-| `admin@company.com` | Admin | All features + User Management |
-| `hr@company.com` | HR | HR Policies + Training Courses |
-| `it@company.com` | IT | IT Policies + Support |
-| `manager@company.com` | Management | Analytics + Messages |
-| `employee@company.com` | Employee | News, Mood, Events |
-
-**Default Password:** Use the password you set during user creation in Supabase
-
----
-
-## 📚 Documentation
-
-### File Structure
+## 📁 البنية المعمارية
 
 ```
 lib/
 ├── core/
-│   ├── config/         # Supabase configuration
-│   ├── theme/          # App theme (colors, typography)
-│   ├── localization/   # Arabic & English translations
-│   └── widgets/        # Reusable widgets
-├── models/             # 11 data models with JSON serialization
-├── services/           # 4 services (Auth, Database, Storage, Notifications)
-├── cubits/             # State management (5 dashboard cubits)
-└── features/           # 27 screens organized by role
-    ├── auth/           # Login screen
-    ├── employee/       # Employee dashboard (4 files)
-    ├── hr/             # HR dashboard (7 files)
-    ├── it/             # IT dashboard (5 files)
-    ├── management/     # Management dashboard (3 files)
-    └── admin/          # Admin dashboard (6 files)
-
-supabase/
-├── complete_schema.sql   # 12 tables + RLS + triggers
-├── storage_setup.sql     # Storage buckets & policies
-├── seed_data.sql         # Sample data for testing
-└── SETUP_GUIDE.md        # Detailed Arabic setup guide
+│   ├── theme/
+│   │   ├── advanced_theme_system.dart   # نظام الألوان والتدرجات
+│   │   ├── theme_cubit.dart             # إدارة الثيم
+│   │   └── app_theme.dart               # إعدادات الثيم
+│   │
+│   └── widgets/
+│       ├── glassmorphic_card.dart       # 💎 Glassmorphic card
+│       ├── animated_button.dart         # 🎯 Animated button
+│       ├── skeleton_loader.dart         # 💀 Skeleton loader
+│       ├── premium_text_field.dart      # ✨ Premium input
+│       └── page_transitions.dart        # 🎬 Page transitions
+│
+├── features/
+│   ├── admin/
+│   │   ├── create_news_screen.dart
+│   │   └── user_detail_screen.dart
+│   │
+│   ├── messages/
+│   │   ├── messages_screen.dart
+│   │   ├── compose_message_screen.dart
+│   │   └── message_detail_screen.dart
+│   │
+│   ├── notifications/
+│   │   └── notifications_screen.dart
+│   │
+│   ├── events/
+│   │   └── event_detail_screen.dart
+│   │
+│   ├── employee/
+│   │   └── enhanced_employee_dashboard.dart
+│   │
+│   └── settings/
+│       └── settings_screen.dart
+│
+└── services/
+    ├── realtime_service.dart            # 🔄 Real-time subscriptions
+    ├── database_service.dart
+    └── storage_service.dart
 ```
 
-### Key Features Implementation
+---
 
-#### Daily Mood Tracking
-- Enforced **one mood per day** via unique index
-- 4 mood types: Happy, Normal, Tired, Need Support
-- Real-time feedback on submission
+## 🎨 Premium Widgets
 
-#### Row Level Security (RLS)
-- **Employee**: View own profile, submit own mood
-- **HR**: Manage HR policies, view all moods
-- **IT**: Manage IT policies, view users
-- **Management**: Publish messages, view analytics
-- **Admin**: Full access to everything
+### 💎 GlassmorphicCard
+```dart
+GlassmorphicCard(
+  onTap: () {},
+  child: YourContent(),
+)
+```
 
-#### State Management
-- **Cubit Pattern** for clean separation of business logic
-- States: Initial, Loading, Loaded, Success, Error
-- Automatic data refresh after CRUD operations
+### 🎯 AnimatedButton
+```dart
+AnimatedButton(
+  text: 'نشر',
+  icon: Icons.publish,
+  isLoading: isLoading,
+  onPressed: () {},
+  gradient: AppGradients.primaryGradient,
+)
+```
+
+### 💀 SkeletonLoader
+```dart
+SkeletonLoader(
+  isLoading: true,
+  child: YourList(),
+)
+```
+
+### ✨ PremiumTextField
+```dart
+PremiumTextField(
+  label: 'البريد الإلكتروني',
+  prefixIcon: Icons.email,
+  controller: emailController,
+)
+```
+
+### 🎬 PageTransitions
+```dart
+context.pushWithTransition(
+  NewScreen(),
+  type: TransitionType.slideFade,
+)
+```
 
 ---
 
-## 🔐 Security
-
-### Authentication
-- Supabase Auth with email/password
-- Role-based access control (RBAC)
-- Row Level Security on all tables
-
-### Data Protection
-- Private storage bucket for documents
-- Public storage for images only
-- Helper function `get_user_role()` for RLS
-
-### Best Practices
-- Input validation on all forms
-- Prepared statements (no SQL injection)
-- Secure password hashing by Supabase
-- HTTPS-only connections
-
----
-
-## 🎨 Customization
-
-### Change Theme Colors
-
-Edit `lib/core/theme/app_theme.dart`:
+## 🔄 Real-Time Features
 
 ```dart
-static const Color primaryColor = Color(0xFF1976D2); // Change to your brand color
-static const Color accentColor = Color(0xFFFF9800);
+// Subscribe to notifications
+final stream = RealtimeService().subscribeToNotifications(userId);
+
+// Subscribe to messages
+final messages = RealtimeService().subscribeToMessages(userRole);
+
+// Subscribe to news
+final news = RealtimeService().subscribeToNews();
+
+// Subscribe to events
+final events = RealtimeService().subscribeToEvents();
 ```
 
-### Add New Language
-
-1. Edit `lib/core/localization/app_localizations.dart`
-2. Add new getter for your language
-3. Update `isSupported()` in delegate
-
-### Modify Dashboard
-
-Each dashboard is self-contained. To edit:
-1. Go to `lib/features/<role>/`
-2. Update Cubit for logic
-3. Update Screen for UI
-
 ---
 
-## 🐛 Troubleshooting
+## 🎨 Theme System
 
-### Common Issues
-
-**Issue: "trigger already exists" error**
-- Solution: Run cleanup first, then schema
-- See: `supabase/SETUP_GUIDE.md`
-
-**Issue: Flutter pub get fails**
-- Solution: Delete `pubspec.lock`, run `flutter clean`, then `flutter pub get`
-
-**Issue: Login fails with 400**
-- Solution: Check Supabase URL and Anon Key in config
-
-**Issue: RLS denies access**
-- Solution: Verify user role in `users` table matches expected role
-
----
-
-## 🚀 Deployment
-
-### Build APK (Android)
-
-```bash
-flutter build apk --release
+### تبديل الثيم
+```dart
+// في أي مكان في التطبيق
+context.read<ThemeCubit>().toggleTheme();
 ```
 
-Output: `build/app/outputs/flutter-apk/app-release.apk`
+### الألوان
+```dart
+// Light Mode
+AppColors.primaryLight
+AppColors.backgroundLight
+AppColors.textPrimaryLight
 
-### Build IPA (iOS)
-
-```bash
-flutter build ios --release
+// Dark Mode
+AppColors.primaryDarkMode
+AppColors.backgroundDark
+AppColors.textPrimaryDark
 ```
 
-Then use Xcode to archive and upload to App Store
-
-### Production Checklist
-
-- [ ] Change Supabase to production project
-- [ ] Update API keys in `.env`
-- [ ] Enable ProGuard/R8 for Android
-- [ ] Setup crash reporting (Sentry/Firebase)
-- [ ] Configure push notifications
-- [ ] Test on physical devices
-- [ ] Submit to Play Store / App Store
+### Gradients
+```dart
+AppGradients.primaryGradient
+AppGradients.successGradient
+AppGradients.errorGradient
+```
 
 ---
 
-## 📊 Project Statistics
+## 📊 Database Schema
 
-- **Total Files**: 85 files
-- **Lines of Code**: ~9,000 lines
-- **Database Tables**: 12 tables
-- **User Roles**: 5 roles
-- **Screens**: 27 screens
-- **Languages**: Arabic (RTL) + English (LTR)
-- **State Management**: Cubit (flutter_bloc)
-- **Completion**: **100%** ✅
+### Users Table
+```sql
+- id (UUID)
+- full_name (TEXT)
+- email (TEXT)
+- role_id (UUID)
+- department (TEXT)
+- is_active (BOOLEAN)
+- avatar_url (TEXT)
+```
 
----
+### Messages Table
+```sql
+- id (UUID)
+- sender_id (UUID)
+- receiver_role (TEXT)
+- title (TEXT)
+- content (TEXT)
+- attachments (JSONB)
+- is_important (BOOLEAN)
+```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
-
-### Development Workflow
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
-
----
-
-## 👨‍💻 Authors
-
-- **Development Team** - Internal Employee Portal
-- **Backend**: Supabase (PostgreSQL + Auth + Storage)
-- **Frontend**: Flutter 3.0+ with Material Design 3
+### Notifications Table
+```sql
+- id (UUID)
+- user_id (UUID)
+- type (TEXT)
+- title (TEXT)
+- body (TEXT)
+- is_read (BOOLEAN)
+```
 
 ---
 
-## 📞 Support
+## 🎯 Best Practices
 
-For support, email support@company.com or open an issue in the repository.
+### 1. State Management
+- ✅ استخدام BLoC/Cubit
+- ✅ Immutable states
+- ✅ Event-driven architecture
+
+### 2. Performance
+- ✅ Lazy loading
+- ✅ Image caching
+- ✅ Optimized builds
+- ✅ Skeleton loaders
+
+### 3. Code Quality
+- ✅ Clean Architecture
+- ✅ SOLID principles
+- ✅ Type-safe code
+- ✅ Error handling
 
 ---
 
-## 🙏 Acknowledgments
+## 📝 License
 
-- Flutter team for the amazing framework
-- Supabase team for the powerful backend
-- Community contributors for fl_chart and other packages
-- All team members who tested and provided feedback
+MIT License - see [LICENSE](LICENSE) file
+
+---
+
+## 🤝 المساهمة
+
+المساهمات مرحب بها! الرجاء:
+1. Fork المشروع
+2. إنشاء Feature Branch
+3. Commit التغييرات
+4. Push إلى Branch
+5. فتح Pull Request
+
+---
+
+## 📞 الدعم
+
+للمساعدة أو الأسئلة:
+- افتح Issue في GitHub
+- راجع [documentation](docs/)
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by Development Team**
+**بُني بـ ❤️ باستخدام Flutter & Supabase**
 
-**المشروع جاهز 100% للإنتاج! 🚀**
+🎨 **Premium Quality** | 🚀 **Production Ready** | 💎 **Modern UI**
 
 </div>
-#   r o l e  
- 

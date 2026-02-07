@@ -263,6 +263,74 @@ class DatabaseService {
     }
   }
 
+  // ============================================
+  // GENERIC CRUD OPERATIONS
+  // ============================================
+
+  /// Get all records from a table
+  Future<List<Map<String, dynamic>>> getAll(String table) async {
+    try {
+      final response = await _supabase.from(table).select();
+      return List<Map<String, dynamic>>.from(response);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Get a single record by ID
+  Future<Map<String, dynamic>?> getById(String table, String id) async {
+    try {
+      final response = await _supabase
+          .from(table)
+          .select()
+          .eq('id', id)
+          .maybeSingle();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Create a new record
+  Future<Map<String, dynamic>?> create(String table, Map<String, dynamic> data) async {
+    try {
+      final response = await _supabase
+          .from(table)
+          .insert(data)
+          .select()
+          .single();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Update a record by ID
+  Future<Map<String, dynamic>?> update(String table, String id, Map<String, dynamic> data) async {
+    try {
+      final response = await _supabase
+          .from(table)
+          .update(data)
+          .eq('id', id)
+          .select()
+          .single();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Delete a record by ID
+  Future<void> delete(String table, String id) async {
+    try {
+      await _supabase
+          .from(table)
+          .delete()
+          .eq('id', id);
+    } catch (e) {
+      rethrow;
+    }
+  }
   /// Alias for hasMoodToday - used by employee_dashboard_cubit
   Future<bool> checkMoodSubmittedToday(String userId) async {
     return hasMoodToday(userId);
@@ -683,17 +751,21 @@ class DatabaseService {
     }
   }
 
-  /// Get all users (Admin/HR only)
+  /// Get all users
   Future<List<UserModel>> getAllUsers() async {
     try {
       final response = await _supabase
           .from('users')
-          .select()
+          .select('*, roles:role_id(role_name, id)')
           .order('full_name', ascending: true);
 
-      return (response as List)
-          .map((json) => UserModel.fromJson(json))
-          .toList();
+      return (response as List).map((json) {
+        // Flatten the role data
+        if (json['roles'] != null) {
+          json['role_name'] = json['roles']['role_name'];
+        }
+        return UserModel.fromJson(json);
+      }).toList();
     } catch (e) {
       rethrow;
     }
@@ -734,6 +806,71 @@ class DatabaseService {
   Future<void> deleteUser(String id) async {
     try {
       await _supabase.from('users').delete().eq('id', id);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Search users by name or email
+  Future<List<UserModel>> searchUsers(String query) async {
+    try {
+      final response = await _supabase
+          .from('users')
+          .select('*, roles:role_id(role_name, id)')
+          .or('full_name.ilike.%$query%,email.ilike.%$query%')
+          .order('full_name');
+
+      return (response as List).map((json) {
+        if (json['roles'] != null) {
+          json['role_name'] = json['roles']['role_name'];
+        }
+        return UserModel.fromJson(json);
+      }).toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Get users by role
+  Future<List<UserModel>> getUsersByRole(String roleName) async {
+    try {
+      // First get the role ID
+      final roleResponse = await _supabase
+          .from('roles')
+          .select('id')
+          .eq('role_name', roleName)
+          .maybeSingle();
+
+      if (roleResponse == null) {
+        return [];
+      }
+
+      final roleId = roleResponse['id'] as String;
+
+      final response = await _supabase
+          .from('users')
+          .select('*, roles:role_id(role_name, id)')
+          .eq('role_id', roleId)
+          .order('full_name');
+
+      return (response as List).map((json) {
+        if (json['roles'] != null) {
+          json['role_name'] = json['roles']['role_name'];
+        }
+        return UserModel.fromJson(json);
+      }).toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Toggle user active status
+  Future<void> toggleUserStatus(String userId, bool isActive) async {
+    try {
+      await _supabase
+          .from('users')
+          .update({'is_active': isActive})
+          .eq('id', userId);
     } catch (e) {
       rethrow;
     }

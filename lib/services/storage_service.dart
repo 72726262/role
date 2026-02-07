@@ -48,6 +48,27 @@ class StorageService {
   }
 
   // ============================================
+  // GENERIC FILE UPLOAD
+  // ============================================
+
+  /// Upload file to specified bucket
+  Future<String> uploadFile(File file, String bucket, String path) async {
+    try {
+      await _supabase.storage
+          .from(bucket)
+          .upload(path, file);
+
+      final url = _supabase.storage
+          .from(bucket)
+          .getPublicUrl(path);
+
+      return url;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // ============================================
   // IMAGES BUCKET
   // ============================================
 

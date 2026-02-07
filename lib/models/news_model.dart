@@ -7,6 +7,8 @@ class NewsModel {
   final String? authorId;
   final bool isPublished;
   final DateTime? publishedAt;
+  final String category; // announcement, policy, event, general
+  final String priority; // normal, high, urgent
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -18,6 +20,8 @@ class NewsModel {
     this.authorId,
     this.isPublished = false,
     this.publishedAt,
+    this.category = 'announcement',
+    this.priority = 'normal',
     required this.createdAt,
     required this.updatedAt,
   });
@@ -33,6 +37,8 @@ class NewsModel {
       publishedAt: json['published_at'] != null
           ? DateTime.parse(json['published_at'] as String)
           : null,
+      category: json['category'] as String? ?? 'announcement',
+      priority: json['priority'] as String? ?? 'normal',
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
     );
@@ -47,6 +53,8 @@ class NewsModel {
       'author_id': authorId,
       'is_published': isPublished,
       'published_at': publishedAt?.toIso8601String(),
+      'category': category,
+      'priority': priority,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
     };
@@ -60,6 +68,8 @@ class NewsModel {
     String? authorId,
     bool? isPublished,
     DateTime? publishedAt,
+    String? category,
+    String? priority,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -71,6 +81,8 @@ class NewsModel {
       authorId: authorId ?? this.authorId,
       isPublished: isPublished ?? this.isPublished,
       publishedAt: publishedAt ?? this.publishedAt,
+      category: category ?? this.category,
+      priority: priority ?? this.priority,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );

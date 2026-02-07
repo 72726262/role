@@ -9,7 +9,9 @@ import '../../cubits/auth/register_cubit.dart';
 import '../../cubits/auth/register_state.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  final bool isAdminCreating;
+  
+  const RegisterScreen({super.key, this.isAdminCreating = false});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

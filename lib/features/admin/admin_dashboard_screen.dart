@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../core/localization/app_localizations.dart';
 import '../../core/widgets/custom_card.dart';
-import 'user_management_screen.dart';
-import 'content_management_screen.dart';
-import 'navigation_links_screen.dart';
-import 'events_management_screen.dart';
-import 'notifications_screen.dart';
+import 'users_list_screen.dart';
+import 'news_management_screen.dart';
+import '../events/events_list_screen.dart';
+import '../notifications/enhanced_notifications_screen.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
@@ -46,7 +45,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const UserManagementScreen()),
+                      MaterialPageRoute(builder: (context) => const UsersListScreen()),
                     );
                   },
                 ),
@@ -57,18 +56,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const ContentManagementScreen()),
-                    );
-                  },
-                ),
-                _AdminCard(
-                  icon: Icons.link,
-                  title: localizations.navigationLinks,
-                  color: Colors.orange,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const NavigationLinksScreen()),
+                      MaterialPageRoute(builder: (context) => const NewsManagementScreen()),
                     );
                   },
                 ),
@@ -79,7 +67,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const EventsManagementScreen()),
+                      MaterialPageRoute(builder: (context) => const EventsListScreen()),
                     );
                   },
                 ),
@@ -90,7 +78,17 @@ class AdminDashboardScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const NotificationsScreen()),
+                      MaterialPageRoute(builder: (context) => const EnhancedNotificationsScreen()),
+                    );
+                  },
+                ),
+                _AdminCard(
+                  icon: Icons.link,
+                  title: localizations.navigationLinks,
+                  color: Colors.orange,
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(localizations.featureComingSoon)),
                     );
                   },
                 ),
