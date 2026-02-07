@@ -15,7 +15,6 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String password,
     required String role,
     required String department,
-    required String employeeId,
     String? phoneNumber,
   }) async {
     emit(RegisterLoading());
@@ -54,19 +53,14 @@ class RegisterCubit extends Cubit<RegisterState> {
         'full_name': fullName,
         'role_id': roleId,
         'is_active': true,
-        'created_at': DateTime.now().toIso8601String(),
-        'updated_at': DateTime.now().toIso8601String(),
       });
 
-      // 4. Create employee profile
+      // 4. Create employee profile (without employee_id - not in schema)
       await _supabase.from('employee_profiles').insert({
         'user_id': userId,
         'department': department,
-        'employee_id': employeeId,
         'phone_number': phoneNumber,
         'hire_date': DateTime.now().toIso8601String().split('T')[0],
-        'created_at': DateTime.now().toIso8601String(),
-        'updated_at': DateTime.now().toIso8601String(),
       });
 
       emit(const RegisterSuccess(

@@ -1,9 +1,10 @@
 import 'package:employee_portal/core/widgets/custom_text_field.dart';
+import 'package:employee_portal/core/widgets/role_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../core/theme/app_theme.dart';
 
-import '../../core/widgets/custom_button.dart';
 import '../../cubits/auth/register_cubit.dart';
 import '../../cubits/auth/register_state.dart';
 
@@ -21,20 +22,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _departmentController = TextEditingController();
-  final _employeeIdController = TextEditingController();
   final _phoneController = TextEditingController();
 
-  String _selectedRole = 'Employee';
+  String? _selectedRoleId;
+  String _selectedRoleName = '';
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _loadingRoles = true;
+  List<RoleOption> _roles = [];
 
-  final List<Map<String, String>> _roles = [
-    {'value': 'Employee', 'label': 'موظف'},
-    {'value': 'HR', 'label': 'موارد بشرية'},
-    {'value': 'IT', 'label': 'تقنية معلومات'},
-    {'value': 'Management', 'label': 'إدارة'},
-    {'value': 'Admin', 'label': 'مسؤول'},
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _loadRoles();
+  }
+
+  Future<void> _loadRoles() async {
+    setState(() => _loadingRoles = true);
+
+    try {
+      final supabase = Supabase.instance.client;
+      final response = await supabase
+          .from('roles')
+          .select('id, role_name, description')
+          .order('role_name');
+
+      final rolesList =
+          (response as List).map((json) => RoleOption.fromJson(json)).toList();
+
+      setState(() {
+        _roles = rolesList;
+        if (_roles.isNotEmpty) {
+          _selectedRoleId = _roles.first.id;
+          _selectedRoleName = _roles.first.roleName;
+        }
+        _loadingRoles = false;
+      });
+    } catch (e) {
+      setState(() => _loadingRoles = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('فشل تحميل الأدوار: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -43,20 +78,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _departmentController.dispose();
-    _employeeIdController.dispose();
     _phoneController.dispose();
     super.dispose();
   }
 
   void _handleRegister(BuildContext context) {
     if (_formKey.currentState!.validate()) {
+      if (_selectedRoleId == null || _selectedRoleName.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('الرجاء اختيار الدور الوظيفي'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
       context.read<RegisterCubit>().register(
             fullName: _fullNameController.text.trim(),
             email: _emailController.text.trim(),
             password: _passwordController.text,
-            role: _selectedRole,
+            role: _selectedRoleName,
             department: _departmentController.text.trim(),
-            employeeId: _employeeIdController.text.trim(),
             phoneNumber: _phoneController.text.trim().isEmpty
                 ? null
                 : _phoneController.text.trim(),
@@ -243,25 +286,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             const SizedBox(height: 16),
 
-                            // Role Dropdown
-                            DropdownButtonFormField<String>(
-                              value: _selectedRole,
-                              decoration: const InputDecoration(
-                                labelText: 'الدور الوظيفي',
-                                prefixIcon: Icon(Icons.badge_outlined),
+                            // Role Selector
+                            if (_loadingRoles)
+                              const Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
+                            else
+                              RoleSelector(
+                                selectedRoleId: _selectedRoleId,
+                                roles: _roles,
+                                enabled: !isLoading,
+                                onRoleSelected: (roleId, roleName) {
+                                  setState(() {
+                                    _selectedRoleId = roleId;
+                                    _selectedRoleName = roleName;
+                                  });
+                                },
                               ),
-                              items: _roles.map((role) {
-                                return DropdownMenuItem(
-                                  value: role['value'],
-                                  child: Text(role['label']!),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedRole = value!;
-                                });
-                              },
-                            ),
                             const SizedBox(height: 16),
 
                             // Department
@@ -272,20 +316,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'الرجاء إدخال القسم';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 16),
-
-                            // Employee ID
-                            CustomTextField(
-                              controller: _employeeIdController,
-                              label: 'رقم الموظف',
-                              prefixIcon: Icons.badge,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'الرجاء إدخال رقم الموظف';
                                 }
                                 return null;
                               },
