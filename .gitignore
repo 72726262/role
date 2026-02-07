@@ -1,0 +1,57 @@
+# Environment variables (sensitive data)
+.env
+.env.local
+.env.*.local
+
+# API Keys and secrets
+*.key
+*.pem
+secrets.json
+
+# Supabase local config (if using local dev)
+.supabase/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Flutter/Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# Android
+*.jks
+*.keystore
+key.properties
+android/app/google-services.json
+
+# iOS
+ios/Runner/GoogleService-Info.plist
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+
+# macOS
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Windows
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugins.cmake
+
+# Linux
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugins.cmake
+
+# Coverage
+coverage/
+
+# Exceptions (keep these)
+!.gitkeep

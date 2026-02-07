@@ -1,0 +1,71 @@
+name: employee_portal
+description: "Internal Employee Portal with Flutter and Supabase"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.7
+
+  # Backend
+  supabase_flutter: ^2.7.0
+
+  # Storage & Caching
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.5
+
+  # UI & Loading
+  # skeletonizer removed due to incompatibility
+  fl_chart: ^0.70.1
+  flutter_svg: ^2.0.14
+
+  # Localization
+  intl: ^0.20.2
+
+  # File Handling
+  file_picker: ^8.1.4
+  image_picker: ^1.1.2
+  url_launcher: ^6.3.1
+
+  # Notifications
+  flutter_local_notifications: ^18.0.1
+
+  # Utils
+  connectivity_plus: ^6.1.2
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  uuid: ^4.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.7
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # Fonts - uncomment after downloading Cairo fonts from https://fonts.google.com/specimen/Cairo
+  # fonts:
+  #   - family: Cairo
+  #     fonts:
+  #       - asset: assets/fonts/Cairo-Regular.ttf
+  #       - asset: assets/fonts/Cairo-Bold.ttf
+  #         weight: 700
+  #       - asset: assets/fonts/Cairo-SemiBold.ttf
+  #         weight: 600
