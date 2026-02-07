@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/localization/app_localizations.dart';
-import '../../core/widgets/custom_card.dart';
+import '../../core/widgets/glassmorphic_card.dart';
+import '../../core/theme/advanced_theme_system.dart';
 
 class NavigationLinksScreen extends StatefulWidget {
   const NavigationLinksScreen({super.key});
@@ -22,90 +23,113 @@ class _NavigationLinksScreenState extends State<NavigationLinksScreen> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(localizations.navigationLinks),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () => _showLinkDialog(),
           ),
         ],
       ),
-      body: ReorderableListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: _links.length,
-        onReorder: (oldIndex, newIndex) {
-          setState(() {
-            if (newIndex > oldIndex) newIndex--;
-            final item = _links.removeAt(oldIndex);
-            _links.insert(newIndex, item);
-            for (int i = 0; i < _links.length; i++) {
-              _links[i]['order'] = i + 1;
-            }
-          });
-        },
-        itemBuilder: (context, index) {
-          final link = _links[index];
-          return Padding(
-            key: ValueKey(link['title']),
-            padding: const EdgeInsets.only(bottom: 12),
-            child: CustomCard(
-              child: ListTile(
-                leading: CircleAvatar(
-                  child: Icon(_getIconData(link['icon'])),
-                ),
-                title: Text(link['title']),
-                subtitle: Text(link['url']),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Switch(
-                      value: link['active'],
-                      onChanged: (value) {
-                        setState(() {
-                          link['active'] = value;
-                        });
-                      },
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: isDark
+              ? AppGradients.darkBackgroundGradient
+              : AppGradients.lightBackgroundGradient,
+        ),
+        child: SafeArea(
+          child: ReorderableListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: _links.length,
+            onReorder: (oldIndex, newIndex) {
+              setState(() {
+                if (newIndex > oldIndex) newIndex--;
+                final item = _links.removeAt(oldIndex);
+                _links.insert(newIndex, item);
+                for (int i = 0; i < _links.length; i++) {
+                  _links[i]['order'] = i + 1;
+                }
+              });
+            },
+            itemBuilder: (context, index) {
+              final link = _links[index];
+              return Container(
+                key: ValueKey(link['title']),
+                margin: const EdgeInsets.only(bottom: 12),
+                child: GlassmorphicCard(
+                  child: ListTile(
+                    leading: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(_getIconData(link['icon']), color: Colors.orange),
                     ),
-                    PopupMenuButton(
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          value: 'edit',
-                          child: Row(
-                            children: [
-                              Icon(Icons.edit),
-                              SizedBox(width: 8),
-                              Text(localizations.edit),
-                            ],
-                          ),
+                    title: Text(
+                      link['title'],
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(link['url']),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Switch(
+                          value: link['active'],
+                          onChanged: (value) {
+                            setState(() {
+                              link['active'] = value;
+                            });
+                          },
+                          activeColor: Colors.orange,
                         ),
-                        PopupMenuItem(
-                          value: 'delete',
-                          child: Row(
-                            children: [
-                              Icon(Icons.delete, color: Colors.red),
-                              SizedBox(width: 8),
-                              Text(localizations.delete, style: TextStyle(color: Colors.red)),
-                            ],
-                          ),
+                        PopupMenuButton(
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              value: 'edit',
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.edit),
+                                  const SizedBox(width: 8),
+                                  Text(localizations.edit),
+                                ],
+                              ),
+                            ),
+                            PopupMenuItem(
+                              value: 'delete',
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.delete, color: Colors.red),
+                                  const SizedBox(width: 8),
+                                  Text(localizations.delete, style: const TextStyle(color: Colors.red)),
+                                ],
+                              ),
+                            ),
+                          ],
+                          onSelected: (value) {
+                            if (value == 'edit') {
+                              _showLinkDialog(link: link);
+                            } else if (value == 'delete') {
+                              setState(() => _links.remove(link));
+                            }
+                          },
                         ),
                       ],
-                      onSelected: (value) {
-                        if (value == 'edit') {
-                          _showLinkDialog(link: link);
-                        } else if (value == 'delete') {
-                          setState(() => _links.remove(link));
-                        }
-                      },
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }
@@ -139,15 +163,15 @@ class _NavigationLinksScreenState extends State<NavigationLinksScreen> {
               controller: titleController,
               decoration: InputDecoration(
                 labelText: localizations.title,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: urlController,
               decoration: InputDecoration(
                 labelText: localizations.url,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
             ),
           ],
